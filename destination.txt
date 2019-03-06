@@ -1,0 +1,53 @@
+'123
+Imports System.IO
+
+Public Class GobalVariable
+	Public Index As Integer = 1000
+	Public counter As Integer
+	Public sourceData(Index) As String
+End Class
+
+'***********************************************************************************************************
+'***********************************************Main********************************************************
+'***********************************************************************************************************
+
+Sub Main()
+	'On Error Resume Next
+	Dim oDoc As DrawingDocument 
+	oDoc = ThisApplication.ActiveDocument
+	Dim oRead As New StreamReader("D:\Macro Inventor\SourceData.txt")
+	Dim sLine As String = ""
+	Dim customData(10) As String
+	
+	'customData
+	customData(0) = "1.TOOL NAME"
+	customData(1) = "10. REGISTER NO."
+	customData(2) = "13.SUPERVISOR"
+	customData(3) = "14.MANAGER"
+	customData(4) = "6.DRAWING BY"
+	customData(5) = "7.PLANNER"
+	
+	'build list from text file
+	i = 0
+	Do
+		sLine = oRead.ReadLine()
+		If Not sLine Is Nothing Then
+			'MessageBox.Show(sLine, "Title")
+			sourceDataObj.sourceData(i) = sLine
+			i = i + 1
+			sourceDataObj.counter = i			
+		End If
+	Loop Until sLine Is Nothing
+	oRead.Close()
+		
+	'MessageBox.Show(sourceDataObj.counter, "Title")
+	
+	For i = 0 To sourceDataObj.counter-1
+		iProperties.Value("Custom",customData(i)) = sourceDataObj.sourceData(i)
+	Next i
+	
+	'processed update when rule is run so save doesn't have to occur to see change
+	iLogicVb.UpdateWhenDone = True
+End Sub
+
+Public sourceDataObj As New GobalVariable
