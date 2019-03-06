@@ -1,0 +1,36 @@
+'123
+Imports System.IO
+
+Dim oDoc As DrawingDocument 
+	oDoc = ThisApplication.ActiveDocument
+Dim fileName As String
+fileName = "D:\Macro Inventor\SourceData.txt"
+Dim wr1 As StreamWriter = New StreamWriter(fileName)
+
+sourceData = iProperties.Value("Custom","1.TOOL NAME")
+wr1.WriteLine(sourceData)
+
+sourceData = iProperties.Value("Custom","10. REGISTER NO.")
+wr1.WriteLine(sourceData)
+
+sourceData = iProperties.Value("Custom","13.SUPERVISOR")
+wr1.WriteLine(sourceData)
+
+sourceData = iProperties.Value("Custom","14.MANAGER")
+wr1.WriteLine(sourceData)
+
+sourceData = iProperties.Value("Custom","6.DRAWING BY")
+wr1.WriteLine(sourceData)
+
+sourceData = iProperties.Value("Custom","7.PLANNER")
+wr1.WriteLine(sourceData)
+
+wr1.Close()
+
+
+'open folder
+Try
+	Process.Start("D:\Macro Inventor") 
+Catch
+	MessageBox.Show("Could not open folder.", "iLogic",MessageBoxButtons.OK,MessageBoxIcon.Information)
+End Try
